@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Desain Logo - Seni Budaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        .logo-canvas {
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        .shape-preview {
+            transition: all 0.3s ease;
+        }
+        .shape-preview:hover {
+            transform: scale(1.1);
+        }
+        .color-option {
+            transition: all 0.2s ease;
+        }
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+        .principle-card {
+            transition: all 0.3s ease;
+        }
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-pink-50 min-h-screen">
+    <!-- Header -->
+    <div class="bg-white shadow-lg border-b-4 border-purple-500">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-purple-800 text-center">🎨 Simulasi Desain Logo</h1>
+            <p class="text-gray-600 text-center mt-2">Pelajaran Seni Budaya - Belajar Prinsip Desain Logo</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 py-8">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Panel Kiri - Teori -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h2 class="text-xl font-bold text-purple-800 mb-4">📚 Prinsip Desain Logo</h2>
+                    <div class="space-y-4">
+                        <div class="principle-card bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-semibold text-blue-800">Kesederhanaan</h3>
+                            <p class="text-sm text-blue-700 mt-1">Logo yang baik mudah diingat dan tidak rumit</p>
+                        </div>
+                        <div class="principle-card bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                            <h3 class="font-semibold text-green-800">Relevansi</h3>
+                            <p class="text-sm text-green-700 mt-1">Sesuai dengan identitas dan nilai organisasi</p>
+                        </div>
+                        <div class="principle-card bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                            <h3 class="font-semibold text-orange-800">Fleksibilitas</h3>
+                            <p class="text-sm text-orange-700 mt-1">Dapat digunakan dalam berbagai ukuran dan media</p>
+                        </div>
+                        <div class="principle-card bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h3 class="font-semibold text-red-800">Keunikan</h3>
+                            <p class="text-sm text-red-700 mt-1">Berbeda dari logo lain dan mudah dikenali</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contoh Logo Terkenal -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-purple-800 mb-4">🌟 Contoh Logo Terkenal</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">A</div>
+                            <div>
+                                <p class="font-semibold">Coca-Cola</p>
+                                <p class="text-xs text-gray-600">Tipografi klasik, mudah diingat</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">f</div>
+                            <div>
+                                <p class="font-semibold">Facebook</p>
+                                <p class="text-xs text-gray-600">Sederhana, mudah dikenali</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold">M</div>
+                            <div>
+                                <p class="font-semibold">McDonald's</p>
+                                <p class="text-xs text-gray-600">Bentuk ikonik, warna mencolok</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Tengah - Canvas Desain -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-purple-800 mb-4">🎯 Area Desain</h2>
+                    
+                    <!-- Canvas -->
+                    <div class="logo-canvas bg-white border-2 border-gray-300 rounded-lg mb-6 relative overflow-hidden" style="height: 300px;" id="logoCanvas">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <p class="text-gray-400 text-sm">Klik elemen di samping untuk menambahkan ke logo</p>
+                        </div>
+                    </div>
+
+                    <!-- Kontrol -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nama/Teks Logo:</label>
+                            <input type="text" id="logoText" placeholder="Masukkan nama..." 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                        
+                        <div class="flex space-x-2">
+                            <button onclick="clearCanvas()" class="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                🗑️ Hapus Semua
+                            </button>
+                            <button onclick="downloadLogo()" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                💾 Simpan Logo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Kanan - Tools -->
+            <div class="lg:col-span-1">
+                <!-- Bentuk -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h2 class="text-xl font-bold text-purple-800 mb-4">🔷 Bentuk Dasar</h2>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="shape-preview bg-blue-100 hover:bg-blue-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('circle')">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full mx-auto mb-2"></div>
+                            <p class="text-xs font-semibold">Lingkaran</p>
+                        </div>
+                        <div class="shape-preview bg-green-100 hover:bg-green-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('square')">
+                            <div class="w-8 h-8 bg-green-500 mx-auto mb-2"></div>
+                            <p class="text-xs font-semibold">Persegi</p>
+                        </div>
+                        <div class="shape-preview bg-purple-100 hover:bg-purple-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('triangle')">
+                            <div class="w-0 h-0 mx-auto mb-2" style="border-left: 16px solid transparent; border-right: 16px solid transparent; border-bottom: 28px solid #8b5cf6;"></div>
+                            <p class="text-xs font-semibold">Segitiga</p>
+                        </div>
+                        <div class="shape-preview bg-yellow-100 hover:bg-yellow-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('star')">
+                            <div class="text-yellow-500 text-2xl mb-1">⭐</div>
+                            <p class="text-xs font-semibold">Bintang</p>
+                        </div>
+                        <div class="shape-preview bg-red-100 hover:bg-red-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('heart')">
+                            <div class="text-red-500 text-2xl mb-1">❤️</div>
+                            <p class="text-xs font-semibold">Hati</p>
+                        </div>
+                        <div class="shape-preview bg-indigo-100 hover:bg-indigo-200 p-4 rounded-lg cursor-pointer text-center" onclick="addShape('diamond')">
+                            <div class="w-6 h-6 bg-indigo-500 transform rotate-45 mx-auto mb-2"></div>
+                            <p class="text-xs font-semibold">Berlian</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warna -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h2 class="text-xl font-bold text-purple-800 mb-4">🎨 Palet Warna</h2>
+                    <div class="grid grid-cols-6 gap-2">
+                        <div class="color-option w-8 h-8 bg-red-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#ef4444')"></div>
+                        <div class="color-option w-8 h-8 bg-blue-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#3b82f6')"></div>
+                        <div class="color-option w-8 h-8 bg-green-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#10b981')"></div>
+                        <div class="color-option w-8 h-8 bg-yellow-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#f59e0b')"></div>
+                        <div class="color-option w-8 h-8 bg-purple-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#8b5cf6')"></div>
+                        <div class="color-option w-8 h-8 bg-pink-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#ec4899')"></div>
+                        <div class="color-option w-8 h-8 bg-orange-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#f97316')"></div>
+                        <div class="color-option w-8 h-8 bg-teal-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#14b8a6')"></div>
+                        <div class="color-option w-8 h-8 bg-indigo-500 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#6366f1')"></div>
+                        <div class="color-option w-8 h-8 bg-gray-800 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#1f2937')"></div>
+                        <div class="color-option w-8 h-8 bg-gray-400 rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#9ca3af')"></div>
+                        <div class="color-option w-8 h-8 bg-white rounded-full cursor-pointer border-2 border-gray-300 hover:border-gray-600" onclick="setCurrentColor('#ffffff')"></div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl shadow-lg p-6 border-l-4 border-yellow-400">
+                    <h2 class="text-lg font-bold text-yellow-800 mb-3">💡 Tips Desain</h2>
+                    <ul class="text-sm text-yellow-700 space-y-2">
+                        <li>• Gunakan maksimal 3 warna</li>
+                        <li>• Pastikan logo terlihat jelas dalam ukuran kecil</li>
+                        <li>• Pilih bentuk yang sesuai dengan karakter brand</li>
+                        <li>• Hindari terlalu banyak detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentColor = '#3b82f6';
+        let elementCounter = 0;
+
+        function setCurrentColor(color) {
+            currentColor = color;
+            // Visual feedback untuk warna yang dipilih
+            document.querySelectorAll('.color-option').forEach(el => {
+                el.classList.remove('ring-4', 'ring-gray-400');
+            });
+            event.target.classList.add('ring-4', 'ring-gray-400');
+        }
+
+        function addShape(shapeType) {
+            const canvas = document.getElementById('logoCanvas');
+            const element = document.createElement('div');
+            elementCounter++;
+            
+            // Posisi random dalam canvas
+            const x = Math.random() * (canvas.offsetWidth - 60) + 30;
+            const y = Math.random() * (canvas.offsetHeight - 60) + 30;
+            
+            element.style.position = 'absolute';
+            element.style.left = x + 'px';
+            element.style.top = y + 'px';
+            element.style.cursor = 'move';
+            element.style.userSelect = 'none';
+            element.id = 'element-' + elementCounter;
+            
+            // Hapus pesan placeholder jika ada
+            const placeholder = canvas.querySelector('p');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            switch(shapeType) {
+                case 'circle':
+                    element.className = 'w-12 h-12 rounded-full';
+                    element.style.backgroundColor = currentColor;
+                    break;
+                case 'square':
+                    element.className = 'w-12 h-12';
+                    element.style.backgroundColor = currentColor;
+                    break;
+                case 'triangle':
+                    element.style.width = '0';
+                    element.style.height = '0';
+                    element.style.borderLeft = '24px solid transparent';
+                    element.style.borderRight = '24px solid transparent';
+                    element.style.borderBottom = '42px solid ' + currentColor;
+                    break;
+                case 'star':
+                    element.innerHTML = '⭐';
+                    element.style.fontSize = '48px';
+                    element.style.color = currentColor;
+                    break;
+                case 'heart':
+                    element.innerHTML = '❤️';
+                    element.style.fontSize = '48px';
+                    element.style.color = currentColor;
+                    break;
+                case 'diamond':
+                    element.className = 'w-10 h-10 transform rotate-45';
+                    element.style.backgroundColor = currentColor;
+                    break;
+            }
+            
+            // Tambahkan event listener untuk drag
+            makeDraggable(element);
+            
+            // Double click untuk hapus
+            element.addEventListener('dblclick', function() {
+                element.remove();
+            });
+            
+            canvas.appendChild(element);
+        }
+
+        function makeDraggable(element) {
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+
+            element.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                initialX = parseInt(element.style.left) || 0;
+                initialY = parseInt(element.style.top) || 0;
+                element.style.zIndex = '1000';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    const deltaX = e.clientX - startX;
+                    const deltaY = e.clientY - startY;
+                    element.style.left = (initialX + deltaX) + 'px';
+                    element.style.top = (initialY + deltaY) + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    element.style.zIndex = 'auto';
+                }
+            });
+        }
+
+        // Tambahkan teks ke canvas
+        document.getElementById('logoText').addEventListener('input', function() {
+            let textElement = document.getElementById('logo-text');
+            const canvas = document.getElementById('logoCanvas');
+            
+            if (!textElement) {
+                textElement = document.createElement('div');
+                textElement.id = 'logo-text';
+                textElement.style.position = 'absolute';
+                textElement.style.left = '50%';
+                textElement.style.top = '50%';
+                textElement.style.transform = 'translate(-50%, -50%)';
+                textElement.style.fontSize = '24px';
+                textElement.style.fontWeight = 'bold';
+                textElement.style.color = currentColor;
+                textElement.style.cursor = 'move';
+                textElement.style.userSelect = 'none';
+                textElement.style.textAlign = 'center';
+                textElement.style.whiteSpace = 'nowrap';
+                
+                makeDraggable(textElement);
+                canvas.appendChild(textElement);
+                
+                // Hapus placeholder jika ada
+                const placeholder = canvas.querySelector('p');
+                if (placeholder) {
+                    placeholder.remove();
+                }
+            }
+            
+            textElement.textContent = this.value;
+            textElement.style.color = currentColor;
+            
+            if (this.value === '') {
+                textElement.remove();
+            }
+        });
+
+        function clearCanvas() {
+            const canvas = document.getElementById('logoCanvas');
+            canvas.innerHTML = '<div class="absolute inset-0 flex items-center justify-center"><p class="text-gray-400 text-sm">Klik elemen di samping untuk menambahkan ke logo</p></div>';
+            document.getElementById('logoText').value = '';
+        }
+
+        function downloadLogo() {
+            // Simulasi download - dalam implementasi nyata bisa menggunakan canvas atau SVG
+            alert('🎉 Logo berhasil disimpan!\n\nDalam aplikasi nyata, logo akan diunduh sebagai file PNG atau SVG. Selamat! Anda telah membuat logo pertama Anda!');
+        }
+
+        // Inisialisasi warna default
+        document.addEventListener('DOMContentLoaded', function() {
+            const defaultColorElement = document.querySelector('.color-option');
+            if (defaultColorElement) {
+                defaultColorElement.classList.add('ring-4', 'ring-gray-400');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98647c891267df93',t:'MTc1OTA3NTU3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
